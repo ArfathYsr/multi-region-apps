@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: sample-multi-app
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/ArfathYsr/multi-region-apps.git
+        revision: main
+        directories:
+          - path: frontend
+          - path: backend
+  template:
+    metadata:
+      name: '{{path.basename}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/ArfathYsr/multi-region-apps.git
+        targetRevision: main
+        path: '{{path}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: default
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
