@@ -21,7 +21,7 @@ spec:
         args:
           - |
             echo "<h1>Hello from Frontend!</h1>
-            <p>Backend says: $(curl -s http://node-backend.backend.svc.cluster.local:5000)</p>" > /usr/share/nginx/html/index.html;
+            <p>Backend says: $(curl -s http://node-backend.backend-app.svc.cluster.local:5000)</p>" > /usr/share/nginx/html/index.html;
             nginx -g 'daemon off;'
         ports:
         - containerPort: 80
