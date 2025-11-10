@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: react-frontend
-        image: ghcr.io/dockersamples/react-voting-app-frontend:latest
+        image: nginx:alpine
         ports:
         - containerPort: 80
