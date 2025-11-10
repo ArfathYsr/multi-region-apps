@@ -28,5 +28,5 @@ spec:
               });
               server.listen(port);
               console.log('Backend running on port', port);
-         ports:
-           - containerPort: 5000
+          ports:
+            - containerPort: 5000
