@@ -20,8 +20,21 @@ spec:
         command: ["/bin/sh", "-c"]
         args:
           - |
-            echo "<h1>Hello from Frontend!</h1>
-            <p>Backend says: $(curl -s http://node-backend.backend-app.svc.cluster.local:5000)</p>" > /usr/share/nginx/html/index.html;
+            cat <<EOF > /usr/share/nginx/html/index.html
+            <html>
+            <head><title>Frontend App</title></head>
+            <body>
+              <h1>Hello from Frontend!</h1>
+              <p id="backend">Fetching backend response...</p>
+              <script>
+                fetch("http://node-backend.backend-app.svc.cluster.local:5000")
+                  .then(r => r.text())
+                  .then(t => document.getElementById("backend").innerText = "Backend says: " + t)
+                  .catch(e => document.getElementById("backend").innerText = "Backend unreachable 😢");
+              </script>
+            </body>
+            </html>
+            EOF
             nginx -g 'daemon off;'
         ports:
         - containerPort: 80
